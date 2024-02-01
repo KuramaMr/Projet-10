@@ -33,6 +33,7 @@ context("Vérification boutons ajout au panier", () => {
             .type(login.password)
             .should("have.value", login.password);
             cy.get('[data-cy=login-submit]').click();
+            
             cy.get('[data-cy=nav-link-logout]').should('exist');
             cy.visit('http://localhost:8080/#/products');
             cy.get('[data-cy=product-link]').first().click();
