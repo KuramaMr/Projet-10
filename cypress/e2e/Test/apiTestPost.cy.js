@@ -20,4 +20,18 @@ context("Login, utilisateur connu ou inconnu", () => {
                 authentification = response.body.token;
             });
         });
+
+        it('Connexion inconnu', () => {
+            cy.request({
+                method: 'POST',
+                url: apiLogin,
+                body: {
+                    username: fauxLogin.email,
+                    password: fauxLogin.password
+                },
+            }).then((response) => {
+                expect(response.status).to.eq(401);
+                expect(response.body).to.have.property('token');
+            });
+        });
 });
