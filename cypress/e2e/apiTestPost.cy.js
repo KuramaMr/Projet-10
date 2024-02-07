@@ -3,6 +3,7 @@ const login = require("../fixtures/login.json");
 const fauxLogin = require("../fixtures/loginFaux.json");
 
 context("Login, utilisateur connu ou inconnu", () => {
+    
     let authentification;
 
         it('Connexion connu', () => {
@@ -27,11 +28,11 @@ context("Login, utilisateur connu ou inconnu", () => {
                 url: apiLogin,
                 body: {
                     username: fauxLogin.email,
-                    password: fauxLogin.password
+                    password: fauxLogin.password,
                 },
+                failOnStatusCode: false
             }).then((response) => {
                 expect(response.status).to.eq(401);
-                expect(response.body).to.have.property('token');
             });
         });
 });
