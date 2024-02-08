@@ -35,4 +35,39 @@ context("Login, utilisateur connu ou inconnu", () => {
                 expect(response.status).to.eq(401);
             });
         });
+
+        it('Ajouter un produit disponible au panier', () => {
+            cy.request({
+                method:'PUT',
+                url: 'http://localhost:8081/orders/add',
+                headers: {
+                    Authorization: `Bearer ${authentification}`
+                },
+                body: {
+                    product:'5',
+                    quantity:'1'
+                }
+            }).then((response) => {
+                expect(response.status).to.eq(200);
+            });
+        });
+
+        it('Ajouter un produit en rupture de stock', () => {
+            cy.request({
+                method:'PUT',
+                url: 'http://localhost:8081/orders/add',
+                headers: {
+                    Authorization: `Bearer ${authentification}`
+                },
+                body: {
+                    product:'3',
+                    quantity:'1'
+                }
+            }).then((response) => {
+                expect(response.status).to.eq(200);
+            });
+        });
 });
+
+
+
