@@ -40,7 +40,6 @@ services:
       - symfony
     ports:
       - 3307:3306
-
       
 networks:
   symfony:
