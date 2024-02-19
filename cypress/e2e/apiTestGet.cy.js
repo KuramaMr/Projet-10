@@ -2,7 +2,7 @@ const login = require("../fixtures/login.json");
 const apiOrders = `${Cypress.env("apiUrl")}/orders`;
 const apiProducts = `${Cypress.env("apiUrl")}/products`;
 
-context("Login", () => {
+context("Vérification du panier en étant connecté", () => {
 
     describe("Attempt to sign in", () => {
         it('should have link to sign in', () => {
@@ -23,7 +23,7 @@ context("Login", () => {
     });
 });
 
-context("Visite du site sans être connecté", () => {  
+context("Vérification si on reçois 403 sans être connecté au panier", () => {  
     
     it("Visite le site sans être connecté & récupération du panier", () => {
         cy.visit('http://localhost:8080');
