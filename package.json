@@ -1,5 +1,13 @@
 {
   "devDependencies": {
     "cypress": "^13.6.4"
+  },
+  "config": {
+
+    "allow-plugins": {
+        "symfony/flex": true
+    }
   }
-}
+} 
+
+
