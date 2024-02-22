@@ -4,31 +4,45 @@ const apiProducts = `${Cypress.env("apiUrl")}/products`;
 
 context("Vérification du panier en étant connecté", () => {
 
-    describe("Attempt to sign in", () => {
-        it('should have link to sign in', () => {
-            cy.visit('http://localhost:8080');
-            cy.get('[data-cy=nav-link-login]').click();
-            cy.get('[data-cy=login-input-username]')
-            .type(login.email)
-            .should("have.value", login.email);
-            cy.get('[data-cy=login-input-password]')
-            .type(login.password)
-            .should("have.value", login.password);
-            cy.get('[data-cy=login-submit]').click();
-            cy.get('[data-cy="nav-link-logout"]').should('exist')
-            cy.request("Get", apiOrders).then((response) => {
-                expect(response.status).to.eq(200)
-            });
-        });
+    let Autorisation;
+
+    it('login test true', () => {
+        cy.request ({
+            method: 'POST',
+            url:'http://localhost:8081/login',
+            body: {
+                username: 'test2@test.fr',
+                password: 'testtest'
+            }
+        }).then((response) => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.have.property('token');
+
+            Autorisation = response.body.token;
+        })
     });
+
+    it('Autorisation', () => {
+        cy.request({
+          method: 'GET',
+          url: 'http://localhost:8081/orders',
+          headers: {
+            Authorization: `Bearer ${Autorisation}`
+          }
+        }).then((response) => {
+            expect(response.status).to.eq(200);
+        })
+    })
+    
 });
 
-context("Vérification si on reçois 403 sans être connecté au panier", () => {  
+context("Vérification si on reçoit 403 sans être connecté au panier", () => {  
     
     it("Visite le site sans être connecté & récupération du panier", () => {
         cy.visit('http://localhost:8080');
-        cy.request("Get", apiOrders).then((response) => {
-            expect(response.status).to.eq(403)
+        cy.request("Get", apiOrders,)
+        .then((response) => {   
+        expect(response.status).to.eq(403)
         });
     });
 });
