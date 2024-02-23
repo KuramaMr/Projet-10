@@ -1,6 +1,9 @@
+const { connexion } = require("../fixtures/connexion.js");
 const login = require("../fixtures/login.json");
 
+
 describe("Affichage des produits sur la page d'acceuil", () => {
+
     it('vérifiez le chargement de la page', () => {
 
         cy.visit('http://localhost:8080/');
@@ -139,17 +142,13 @@ describe('Panier', () => {
             });
         });
     });
-    
+
+    beforeEach(() => {
+            connexion();   
+            })
     it("Ajout d'un produit dans le panier", () => {
-        cy.visit('http://localhost:8080');
-            cy.get('[data-cy=nav-link-login]').click();
-            cy.get('[data-cy=login-input-username]')
-            .type(login.email)
-            .should("have.value", login.email);
-            cy.get('[data-cy=login-input-password]')
-            .type(login.password)
-            .should("have.value", login.password);
-            cy.get('[data-cy=login-submit]').click();
+            
+            
             cy.wait(2000);
 
             // On navigue vers le produit
@@ -222,15 +221,7 @@ describe('Panier', () => {
     });
 
     it('Entrer un chiffre négatif', () => {
-        cy.visit('http://localhost:8080');
-            cy.get('[data-cy=nav-link-login]').click();
-            cy.get('[data-cy=login-input-username]')
-            .type(login.email)
-            .should("have.value", login.email);
-            cy.get('[data-cy=login-input-password]')
-            .type(login.password)
-            .should("have.value", login.password);
-            cy.get('[data-cy=login-submit]').click();
+            connexion();
             cy.wait(2000);
 
             // On navigue vers le produit
@@ -256,15 +247,7 @@ describe('Panier', () => {
     });
 
     it('Entrer un chiffre supérieur à 20', () => {
-        cy.visit('http://localhost:8080');
-            cy.get('[data-cy=nav-link-login]').click();
-            cy.get('[data-cy=login-input-username]')
-            .type(login.email)
-            .should("have.value", login.email);
-            cy.get('[data-cy=login-input-password]')
-            .type(login.password)
-            .should("have.value", login.password);
-            cy.get('[data-cy=login-submit]').click();
+            connexion();
             cy.wait(2000);
 
             // On navigue vers le produit

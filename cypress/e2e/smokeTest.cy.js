@@ -1,4 +1,4 @@
-
+const { connexion } = require("../fixtures/connexion.js");
 const login = require("../fixtures/login.json");
 
 context("Vérification des champs de connexion et du bouton", () => {
@@ -24,16 +24,7 @@ context("Vérification boutons ajout au panier", () => {
 
         it('Connexion du client', () => {
 
-            cy.visit('http://localhost:8080');
-            cy.get('[data-cy=nav-link-login]').click();
-            cy.get('[data-cy=login-input-username]')
-            .type(login.email)
-            .should("have.value", login.email);
-            cy.get('[data-cy=login-input-password]')
-            .type(login.password)
-            .should("have.value", login.password);
-            cy.get('[data-cy=login-submit]').click();
-            
+            connexion();
             cy.get('[data-cy=nav-link-logout]').should('exist');
             cy.visit('http://localhost:8080/#/products');
             cy.get('[data-cy=product-link]').first().click();

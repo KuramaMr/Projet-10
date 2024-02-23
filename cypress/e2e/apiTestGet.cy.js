@@ -1,4 +1,4 @@
-const login = require("../fixtures/login.json");
+
 const apiOrders = `${Cypress.env("apiUrl")}/orders`;
 const apiProducts = `${Cypress.env("apiUrl")}/products`;
 
